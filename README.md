@@ -8,7 +8,7 @@ can pick their own theme on top.
 
 | Package | What | Stack |
 |---|---|---|
-| `apps/mobile` | Member app (iOS, Android, web) | React Native, Expo SDK 53 |
+| `apps/mobile` | Member app (iOS, Android, web) | React Native 0.88, Expo SDK 58 |
 | `apps/dashboard` | Owner / manager / trainer dashboard + platform admin console | React 19 + Vite |
 | `apps/api` | Multi-tenant REST API | Cloudflare Workers + Durable Object SQLite (Node 24 + `node:sqlite` locally) |
 | `packages/shared` | Contract: types, zod schemas, theme engine (WCAG AA), streaks, badges | TypeScript |
@@ -16,7 +16,7 @@ can pick their own theme on top.
 
 ## Run it locally
 
-Requires Node 24 (the API uses the built-in `node:sqlite`).
+Requires Node 24.3 or newer (the API uses the built-in `node:sqlite`; Expo SDK 58 needs 24.3+).
 
 ```bash
 npm install
@@ -44,7 +44,11 @@ npm run dev:dashboard
   `apps/api/.dev.vars` first).
 - Demo gym **FLEX42** (Flex Fitness, Pune). Owner `+919999900001` (Priya), member `+919999900002`
   (Ravi), trainer `+919999900003` (Coach Vikram). In development the login code is shown on screen.
-- On a phone: `npm run start -w @gymverse/mobile`, scan with Expo Go, and set `EXPO_PUBLIC_API_URL`
+- On a phone: the Expo Go app in the stores doesn't run SDK 58 yet, so install a build from EAS
+  instead. `cd apps/mobile && eas build --profile preview --platform android` makes an installable
+  app that talks to the staging API (set its URL in `eas.json`). To run your local code on a phone
+  with live reload, add a development client first (`npx expo install expo-dev-client`), build the
+  `development` profile once, then `npm run start -w @gymverse/mobile` and set `EXPO_PUBLIC_API_URL`
   to your computer's LAN address.
 
 ## Test it
