@@ -1,0 +1,21 @@
+{
+  "name": "gymverse",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "dev:api": "npm run dev -w @gymverse/api",
+    "dev:dashboard": "npm run dev -w @gymverse/dashboard",
+    "dev:mobile": "npm run web -w @gymverse/mobile",
+    "test:coverage": "npm run test:coverage --workspaces --if-present"
+  },
+  "overrides": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}

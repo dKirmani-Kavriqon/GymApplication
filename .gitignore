@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.expo/
+web-build/
+*.db
+*.db-*
+coverage/
+.env
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
+.wrangler/

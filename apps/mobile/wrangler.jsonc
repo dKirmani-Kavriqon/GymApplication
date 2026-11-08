@@ -1,0 +1,12 @@
+// Member app's web build on Cloudflare (optional: the stores ship the native apps).
+// Build first: EXPO_PUBLIC_API_URL=https://api.example.com npm run build:cloudflare
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "gymverse-member-web",
+  "compatibility_date": "2026-11-01",
+  "workers_dev": true,
+  "assets": { "directory": "./dist", "not_found_handling": "single-page-application" },
+  "env": {
+    "staging": { "name": "gymverse-member-web-staging" }
+  }
+}

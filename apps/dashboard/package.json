@@ -1,0 +1,37 @@
+{
+  "name": "@gymverse/dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "vite build",
+    "preview": "vite preview --port 5173",
+    "test": "vitest run",
+    "typecheck": "tsc -p .",
+    "test:coverage": "vitest run --coverage --coverage.include=src --coverage.exclude=src/test/** --coverage.exclude=src/**/*.test.* --coverage.exclude=src/main.tsx --coverage.reporter=text-summary --coverage.thresholds.lines=80 --coverage.thresholds.functions=75 --coverage.thresholds.branches=70",
+    "build:cloudflare": "vite build && node ../../scripts/cf-headers.mjs dist",
+    "deploy": "wrangler deploy --env=\"\"",
+    "deploy:staging": "wrangler deploy --env staging"
+  },
+  "dependencies": {
+    "@gymverse/shared": "0.1.0",
+    "qrcode": "^1.5.4",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/qrcode": "^1.5.5",
+    "@types/react": "~19.3.0",
+    "@types/react-dom": "~19.3.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "@vitest/coverage-v8": "^3.2.7",
+    "jsdom": "^26.1.0",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vitest": "^3.1.2"
+  }
+}

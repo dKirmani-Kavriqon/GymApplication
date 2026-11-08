@@ -1,0 +1,64 @@
+{
+  "expo": {
+    "name": "GymVerse",
+    "slug": "gymverse",
+    "scheme": "gymverse",
+    "version": "0.2.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "bundleIdentifier": "com.gymverse.app",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "GymVerse uses Face ID to unlock the app when you turn on App lock.",
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.gymverse.app",
+      "permissions": [
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F8F1E7"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png",
+      "name": "GymVerse",
+      "themeColor": "#6B0F1A",
+      "backgroundColor": "#F8F1E7"
+    },
+    "extra": {},
+    "plugins": [
+      "expo-font",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "GymVerse uses Face ID to unlock the app when you turn on App lock."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#6B0F1A"
+        }
+      ],
+      "expo-web-browser",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#F8F1E7"
+        }
+      ]
+    ],
+    "icon": "./assets/icon.png"
+  }
+}

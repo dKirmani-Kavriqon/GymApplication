@@ -1,0 +1,65 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "api-e2e",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "start",
+        "-w",
+        "@gymverse/api"
+      ],
+      "env": {
+        "PORT": "4100",
+        "DB_PATH": "e2e.db"
+      },
+      "port": 4100
+    },
+    {
+      "name": "mobile-web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "expo",
+        "start",
+        "--web",
+        "--port",
+        "8081"
+      ],
+      "cwd": "apps/mobile",
+      "env": {
+        "EXPO_PUBLIC_API_URL": "http://localhost:4100",
+        "CI": "1"
+      },
+      "port": 8081
+    },
+    {
+      "name": "dashboard",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "-w",
+        "@gymverse/dashboard"
+      ],
+      "env": {
+        "VITE_API_URL": "http://localhost:4100"
+      },
+      "port": 5173
+    },
+    {
+      "name": "cf-dashboard",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["wrangler", "dev", "--env", "staging", "--port", "5300"],
+      "cwd": "apps/dashboard",
+      "port": 5300
+    },
+    {
+      "name": "cf-member-web",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["wrangler", "dev", "--env", "staging", "--port", "5301"],
+      "cwd": "apps/mobile",
+      "port": 5301
+    }
+  ]
+}

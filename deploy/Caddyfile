@@ -1,0 +1,42 @@
+# Caddy gets and renews TLS certificates automatically for both hostnames.
+{
+	email {$ACME_EMAIL}
+}
+
+(security_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+}
+
+# Owner dashboard (static SPA)
+{$DASHBOARD_HOST} {
+	import security_headers
+	header {
+		X-Frame-Options "DENY"
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://{$API_HOST}; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+	}
+	encode zstd gzip
+	root * /srv/dashboard
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+	try_files {path} /index.html
+	file_server
+}
+
+# API
+{$API_HOST} {
+	import security_headers
+	encode zstd gzip
+	request_body {
+		max_size 2MB
+	}
+	reverse_proxy api:4000 {
+		health_uri /health/live
+		health_interval 10s
+	}
+}

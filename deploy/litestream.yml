@@ -1,0 +1,15 @@
+# Continuous SQLite replication to S3-compatible storage (AWS S3, Cloudflare R2, Backblaze B2).
+# Point-in-time restore: litestream restore -o /tmp/restore.db -timestamp 2026-11-08T10:00:00Z s3://...
+dbs:
+  - path: /data/gymverse.db
+    replicas:
+      - type: s3
+        bucket: ${LITESTREAM_BUCKET}
+        path: gymverse
+        endpoint: ${LITESTREAM_ENDPOINT}
+        region: ${LITESTREAM_REGION}
+        access-key-id: ${LITESTREAM_ACCESS_KEY_ID}
+        secret-access-key: ${LITESTREAM_SECRET_ACCESS_KEY}
+        sync-interval: 1s
+        retention: 720h # 30 days of point-in-time restore
+        snapshot-interval: 24h

@@ -1,0 +1,32 @@
+{
+  "name": "@gymverse/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "dev:worker": "wrangler dev --env staging --port 4200",
+    "start": "tsx src/server.ts",
+    "seed": "tsx src/seed.ts",
+    "test": "node --import tsx --test --test-reporter=spec \"test/**/*.test.ts\"",
+    "test:coverage": "node --import tsx --test --experimental-test-coverage --test-coverage-include=\"src/**\" --test-coverage-exclude=\"test/**\" --test-coverage-exclude=\"src/server.ts\" --test-coverage-exclude=\"src/seed.ts\" --test-coverage-exclude=\"src/worker.ts\" --test-coverage-exclude=\"src/db-durable.ts\" --test-coverage-lines=80 --test-coverage-functions=80 --test-coverage-branches=70 \"test/**/*.test.ts\"",
+    "test:worker": "node --import tsx test/workerd/run.ts",
+    "smoke": "node --import tsx scripts/smoke.ts",
+    "typecheck": "tsc -p .",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy": "wrangler deploy --env=\"\""
+  },
+  "dependencies": {
+    "@gymverse/shared": "0.1.0",
+    "@hono/node-server": "^2.1.6",
+    "hono": "^4.13.17",
+    "tsx": "^4.19.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261108.1",
+    "@types/node": "^22.15.3",
+    "typescript": "~5.8.3",
+    "wrangler": "^4.158.0"
+  }
+}

@@ -1,0 +1,57 @@
+// GymVerse API on Cloudflare Workers + one SQLite-backed Durable Object.
+// Secrets are NOT in this file: set them with `npx wrangler secret put NAME` (see docs/PRODUCTION.md).
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "gymverse-api",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "observability": { "enabled": true },
+
+  // Point a custom domain at the API once DNS for it is on Cloudflare:
+  // "routes": [{ "pattern": "api.example.com", "custom_domain": true }],
+
+  "durable_objects": {
+    "bindings": [{ "name": "GYMVERSE", "class_name": "GymVerseApi" }]
+  },
+  // Never edit a released migration; add a new tag.
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["GymVerseApi"] }],
+
+  // Class reminders, renewal reminders, OTP pruning.
+  "triggers": { "crons": ["*/5 * * * *"] },
+
+  "vars": {
+    "NODE_ENV": "production",
+    "LOG_LEVEL": "info",
+    "LOCATION_HINT": "apac",
+    "PUBLIC_API_URL": "https://api.example.com",
+    "CORS_ORIGINS": "https://app.example.com",
+    "PLATFORM_ADMIN_PHONES": "",
+    "SMS_PROVIDER": "msg91",
+    "PAYMENTS_PROVIDER": "razorpay"
+  },
+
+  "env": {
+    // A demo/staging copy with the FLEX42 demo gym, test payments and login codes shown on screen.
+    // Separate Worker, separate database. Never put real members here.
+    "staging": {
+      "name": "gymverse-api-staging",
+      "durable_objects": {
+        "bindings": [{ "name": "GYMVERSE", "class_name": "GymVerseApi" }]
+      },
+      "triggers": { "crons": ["*/5 * * * *"] },
+      "vars": {
+        "NODE_ENV": "development",
+        "LOG_LEVEL": "info",
+        "LOCATION_HINT": "apac",
+        "PUBLIC_API_URL": "",
+        "CORS_ORIGINS": "*",
+        "PLATFORM_ADMIN_PHONES": "+919999900001",
+        "SMS_PROVIDER": "log",
+        "PAYMENTS_PROVIDER": "mock",
+        "DEMO_SEED": "true"
+      }
+    }
+  }
+}

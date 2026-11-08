@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/.expo
+**/web-build
+**/coverage
+**/*.db
+**/*.db-*
+.env
+.git
+.github
+docs
+apps/mobile/ios
+apps/mobile/android

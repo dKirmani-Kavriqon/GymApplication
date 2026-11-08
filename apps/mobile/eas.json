@@ -1,0 +1,29 @@
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": { "EXPO_PUBLIC_API_URL": "http://192.168.1.40:4000" }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "env": { "EXPO_PUBLIC_API_URL": "https://api-staging.example.com" }
+    },
+    "production": {
+      "autoIncrement": true,
+      "channel": "production",
+      "env": { "EXPO_PUBLIC_API_URL": "https://api.example.com" }
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": { "ascAppId": "REPLACE_WITH_APP_STORE_CONNECT_APP_ID" },
+      "android": { "track": "internal" }
+    }
+  }
+}
